@@ -1,10 +1,11 @@
 package com.adityabansal.motivatr;
-
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -14,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar.Model;
 
@@ -25,7 +25,9 @@ import java.util.ArrayList;
  */
 
 public class NavBarActivity extends AppCompatActivity {
-    FragmentPagerAdapter adapterViewPager;
+    public static FragmentStatePagerAdapter adapterViewPager;
+    public static ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class NavBarActivity extends AppCompatActivity {
 
 
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.vp_horizontal_ntb);
+        viewPager = (ViewPager) findViewById(R.id.vp_horizontal_ntb);
 
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapterViewPager);
@@ -95,10 +97,16 @@ public class NavBarActivity extends AppCompatActivity {
         navigationTabBar.setIconSizeFraction(Float.valueOf("0.5"));
     }
 
-    public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private static int NUM_ITEMS = 2;
+
+
+
+
+    public  class MyPagerAdapter extends FragmentStatePagerAdapter {
+        private  int NUM_ITEMS = 2;
+        MainActivity m;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
+
             super(fragmentManager);
         }
 
@@ -112,26 +120,49 @@ public class NavBarActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0: // Fragment # 0 - This will show FirstFragment
-                    return new MainActivity();
+                case 0: // Fragment # 0 - This will show FirstFragment//                    m.adapter_mypager = adapterViewPager;
+                    if(m == null){
+                        Log.d("CALLING POSITION 0" , "NEW MAIN ACTIVITY");
+                        m= new MainActivity();
+                        return m;
+
+                    }else {
+                        return m;
+                    }
                 case 1: // Fragment # 0 - This will show FirstFragment
                     Log.d("CALLING POSITION 1" , "NEW FRAGMENT");
                     return new SavedPostsFragment();
-//                case 1: // Fragment # 0 - This will show FirstFragment different title
-//                    return FirstFragment.newInstance(1, "Page # 2");
-//                case 2: // Fragment # 1 - This will show SecondFragment
-//                    return SecondFragment.newInstance(2, "Page # 3");
+//
                 default:
                     return null;
             }
         }
 
-        // Returns the page title for the top indicator
+
         @Override
-        public CharSequence getPageTitle(int position) {
-            return "Page " + position;
+        public int getItemPosition(Object object) {
+            // Causes adapter to reload all Fragments when
+            // notifyDataSetChanged is called
+            return POSITION_NONE;
         }
 
+
+
     }
+
+    @Override
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        Log.d("NAV BAR" , "ON RESUME");
+    }
+
+/*
+    @Override
+    public Parcelable saveState()
+    {
+        return null;
+    }
+*/
 
 }

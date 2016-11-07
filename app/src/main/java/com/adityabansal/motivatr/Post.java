@@ -8,10 +8,13 @@ import com.contentful.vault.Asset;
 import com.contentful.vault.ContentType;
 import com.contentful.vault.Field;
 import com.contentful.vault.Resource;
+
+import org.parceler.Parcel;
+
 import java.util.List;
-//import org.parceler.Parcel;
 
 @ContentType("2wKn6yEnZewu2SCCkus4as")
+@Parcel
 public class Post extends Resource {
 
     @Field String title;

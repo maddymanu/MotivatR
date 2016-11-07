@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +41,8 @@ public class MainActivity extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Paper.init(getActivity());
+        Paper.book().destroy();
+
     }
 
 
@@ -52,7 +55,7 @@ public class MainActivity extends Fragment {
         View view = inflater.inflate(R.layout.activity_main, container, false);
 //        setContentView(R.layout.activity_main);
 
-        Vault vault = Vault.with(getContext(), Space2.class);
+        Vault vault = Vault.with(getActivity(), Space2.class);
         List<Post> posts = vault.fetch(Post.class).all();
 
 
@@ -73,14 +76,10 @@ public class MainActivity extends Fragment {
                 .setToken("999b58e557abc1bf4292817e83b822b3eb7034e68e01799c0b6afa6a88c03f82")
                 .build();
 
-//        vault.requestSync(SyncConfig.builder().setClient(client).build());
-
-
-
         Vault.with(getActivity(), Space2.class).requestSync(SyncConfig.builder().setClient(client).build(), callback = new SyncCallback() {
             @Override public void onResult(SyncResult result) {
                 if (result.isSuccessful()) {
-                    Vault vault = Vault.with(getContext(), Space2.class);
+                    Vault vault = Vault.with(getActivity(), Space2.class);
                     final List<Post> all = vault.fetch(Post.class).all();
 
                     final SharedPreferences ss = getActivity().getSharedPreferences("db", 0);
@@ -97,7 +96,7 @@ public class MainActivity extends Fragment {
 
 
                     for(Post p: allSavedPosts){
-                        Log.d("SAVED POST" , p.featuredImage.url());
+//                        Log.d("SAVED POST" , p.featuredImage.url());
                     }
 
                     for(String s: in) {
@@ -109,8 +108,7 @@ public class MainActivity extends Fragment {
                     //TODO
                     //Remove the saved and discarded from all.
                     SwipeDeck cardStack = (SwipeDeck) getActivity().findViewById(R.id.swipe_deck);
-
-                    final SwipeDeckAdapter adapter = new SwipeDeckAdapter(all, getActivity());
+                    final SwipeDeckAdapter adapter = new SwipeDeckAdapter(all, getActivity(), getFragmentManager());
                     cardStack.setAdapter(adapter);
 
                     cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
@@ -127,6 +125,10 @@ public class MainActivity extends Fragment {
                             Log.i("MainActivity", "card was swiped right, position in adapter: " + position);
                             allSavedPosts.add(all.get(position));
                             Paper.book().write("savedPosts", allSavedPosts);
+
+
+//                            NavBarActivity.adapterViewPager.notifyDataSetChanged();
+                            
                         }
 
                         @Override
@@ -160,4 +162,7 @@ public class MainActivity extends Fragment {
         Vault.cancel(callback);
         super.onDestroy();
     }
+
+
+
 }

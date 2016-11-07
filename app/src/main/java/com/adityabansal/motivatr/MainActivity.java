@@ -36,12 +36,13 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends Fragment {
     SyncCallback callback;
+    View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Paper.init(getActivity());
-        Paper.book().destroy();
+//        Paper.book().destroy();
 
     }
 
@@ -51,8 +52,13 @@ public class MainActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                 Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-
-        View view = inflater.inflate(R.layout.activity_main, container, false);
+        Log.d("MAIN ACT" , "ON CREATE VIEW");
+        if(view != null) {
+            Log.d("MAIN AC" , "SAVED IS NOT NULL");
+//            savedInstanceState.
+            return view;
+        }
+        view = inflater.inflate(R.layout.activity_main, container, false);
 //        setContentView(R.layout.activity_main);
 
         Vault vault = Vault.with(getActivity(), Space2.class);
@@ -127,8 +133,8 @@ public class MainActivity extends Fragment {
                             Paper.book().write("savedPosts", allSavedPosts);
 
 
-//                            NavBarActivity.adapterViewPager.notifyDataSetChanged();
-                            
+                            NavBarActivity.adapterViewPager.notifyDataSetChanged();
+
                         }
 
                         @Override
@@ -161,6 +167,12 @@ public class MainActivity extends Fragment {
     @Override public void onDestroy() {
         Vault.cancel(callback);
         super.onDestroy();
+    }
+
+
+    @Override public void onResume() {
+        super.onResume();
+        Log.d("ON RESUME" , "MIAN ACT");
     }
 
 

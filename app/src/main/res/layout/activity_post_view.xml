@@ -11,51 +11,20 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"/>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:background="@android:color/white">
-
-            <!--<android.support.v7.widget.LinearLayoutCompat
-                android:id="@+id/thumbnails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal"
-                app:showDividers="middle"
-                app:divider="@drawable/thumbnails_divider"/>-->
-
-        </HorizontalScrollView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="15dp">
-
-            <LinearLayout
+ <!--           <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal">-->
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/top_postview_image"/>
 
                 <TextView
                     android:id="@+id/post_title"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"/>
@@ -66,29 +35,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"/>
 
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/company_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"/>
-
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="20sp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/body_post"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="@android:color/black"/>
 
             <us.feras.mdv.MarkdownView
                 android:layout_width="match_parent"
@@ -109,7 +55,6 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp"/>-->
 
-        </LinearLayout>
 
     </LinearLayout>
 

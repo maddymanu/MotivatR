@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.contentful.vault.Vault;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -29,6 +30,7 @@ public class PostView extends AppCompatActivity {
 
     TextView titleTV, bodyTV;
     MarkdownView bodyMV;
+    ImageView top_image_view;
 
 
 
@@ -55,17 +57,23 @@ public class PostView extends AppCompatActivity {
 
 
         titleTV = (TextView) findViewById(R.id.post_title);
-        bodyTV = (TextView) findViewById(R.id.body_post);
+        top_image_view = (ImageView) findViewById(R.id.top_postview_image);
+//        bodyTV = (TextView) findViewById(R.id.body_post);
         bodyMV = (MarkdownView) findViewById(R.id.markdownViewBody);
         currPost = Parcels.unwrap(getIntent().getParcelableExtra(Intents.EXTRA_POST));
 
         Log.d("DATA FROM POSTVIEW" , currPost.title+currPost.body);
 
 
+        initImage();
         initText();
 
 
 
+    }
+
+    private void initImage() {
+        Picasso.with(getApplicationContext()).load(currPost.featuredImage.url()).fit().centerCrop().into(top_image_view);
     }
 
 

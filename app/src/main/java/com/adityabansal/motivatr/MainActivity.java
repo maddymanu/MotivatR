@@ -25,6 +25,7 @@ import com.contentful.vault.Vault;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class MainActivity extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Paper.init(getActivity());
-//        Paper.book().destroy();
+        Paper.book().destroy();
 
     }
 
@@ -88,28 +89,41 @@ public class MainActivity extends Fragment {
                     Vault vault = Vault.with(getActivity(), Space2.class);
                     final List<Post> all = vault.fetch(Post.class).all();
 
-                    final SharedPreferences ss = getActivity().getSharedPreferences("db", 0);
+//                    final SharedPreferences ss = getActivity().getSharedPreferences("db", 0);
           /*          SharedPreferences.Editor editor = ss.edit();
                     editor.clear();
                     editor.apply();
 */
 
-                    Set<String> hs = ss.getStringSet("discardedSlugs", new HashSet<String>());
-                    final Set<String> in = new HashSet<String>(hs);
+//                    Set<String> hs = ss.getStringSet("discardedSlugs", new HashSet<String>());
+//                    final Set<String> in = new HashSet<String>(hs);
+
+
 
 
                     final Set<Post> allSavedPosts = Paper.book().read("savedPosts", new HashSet<Post>());
+                    final Set<Post> allDiscaredPosts = Paper.book().read("discaredPosts", new HashSet<Post>());
 
+                  /*  for(String discardeeSlug: in) {
+                        if (all.contains(discardeeSlug)) {
 
-                    for(Post p: allSavedPosts){
-//                        Log.d("SAVED POST" , p.featuredImage.url());
+                        }
+                    }*/
+           /*         for(Post p: all) {
+                        if(allSavedPosts.contains(p) || allDiscaredPosts.contains(p)) {
+                            all.remove(p);
+                        }
+                    }*/
+
+                    for (Iterator<Post> it = all.iterator(); it.hasNext(); ) {
+                        Post p = it.next();
+                        if (allSavedPosts.contains(p) || allDiscaredPosts.contains(p)) {
+                            it.remove();
+                        }
                     }
 
-                    for(String s: in) {
-//                        Log.d("SHARED PREFEES DISCARED" , s);
 
-                    }
-                    ss.edit().putStringSet("discardedSlugs", in).apply();
+//                    ss.edit().putStringSet("discardedSlugs", in).apply();
 
                     //TODO
                     //Remove the saved and discarded from all.
@@ -122,13 +136,17 @@ public class MainActivity extends Fragment {
                         public void cardSwipedLeft(int position) {
                             Log.i("MainActivity", "card was swiped left, position in adapter: " + position);
                             //all.get(position).status = "LEFT SWIPED";
-                            in.add(all.get(position).slug);
-                            ss.edit().putStringSet("discardedSlugs", in).apply();
+//                            in.add(all.get(position).slug);
+//                            ss.edit().putStringSet("discardedSlugs", in).apply();
+                            allDiscaredPosts.add(all.get(position));
+                            Paper.book().write("discaredPosts", allDiscaredPosts);
                         }
 
                         @Override
                         public void cardSwipedRight(int position) {
                             Log.i("MainActivity", "card was swiped right, position in adapter: " + position);
+
+
                             allSavedPosts.add(all.get(position));
                             Paper.book().write("savedPosts", allSavedPosts);
 

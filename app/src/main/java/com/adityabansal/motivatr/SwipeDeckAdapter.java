@@ -20,6 +20,8 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.BlurTransformation;
+
 /**
  * Created by adityabansal on 11/4/16.
  */
@@ -61,6 +63,7 @@ public class SwipeDeckAdapter extends BaseAdapter {
             v = inflater.inflate(R.layout.single_card_view, parent, false);
         }
             final ImageView mainImg = (ImageView) v.findViewById(R.id.img);
+            final TextView title_textview = (TextView) v.findViewById(R.id.title_post);
 
 
             String url = null;
@@ -72,7 +75,8 @@ public class SwipeDeckAdapter extends BaseAdapter {
 
         try {
 
-            Picasso.with(this.context).load(url).fit().centerCrop().into(mainImg);
+            Picasso.with(this.context).load(url).transform(new BlurTransformation(this.context)).fit().centerCrop().into(mainImg);
+            title_textview.setText(data.get(position).title);
 
         }catch (Exception e2) {
             Log.d("EXCCC" , e2.toString());

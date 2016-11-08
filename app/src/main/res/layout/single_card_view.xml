@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     card_view:cardCornerRadius="6dp"
@@ -38,9 +39,15 @@
             android:layout_alignRight="@id/img"
             android:layout_alignBottom="@id/img"
             android:layout_margin="1dp"
-            android:gravity="center"
+            android:gravity="bottom"
             android:id="@+id/title_post"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            tools:textColor="@android:color/white"
+            android:textStyle="normal|bold"
+            android:textColor="@android:color/white"
+            android:textSize="26sp"
+            android:textAllCaps="true"
+            tools:textSize="32sp"/>
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -26,6 +26,7 @@ import com.contentful.vault.Vault;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class MainActivity extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Paper.init(getActivity());
-        Paper.book().destroy();
+//        Paper.book().destroy();
 
     }
 
@@ -53,30 +54,22 @@ public class MainActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                 Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-        Log.d("MAIN ACT" , "ON CREATE VIEW");
         if(view != null) {
-            Log.d("MAIN AC" , "SAVED IS NOT NULL");
 //            savedInstanceState.
             return view;
         }
         view = inflater.inflate(R.layout.activity_main, container, false);
 //        setContentView(R.layout.activity_main);
 
-        Vault vault = Vault.with(getActivity(), Space2.class);
-        List<Post> posts = vault.fetch(Post.class).all();
+        Paper.book().destroy();
 
-
-
-//        SQLiteDatabase db = vault.getReadableDatabase();
-
-
-        doStuff();
+        setView();
 
         return view;
 
     }
 
-    private void doStuff() {
+    private void setView() {
 
         CDAClient client = CDAClient.builder()
                 .setSpace("o8ueiznwl6xg")
@@ -87,7 +80,7 @@ public class MainActivity extends Fragment {
             @Override public void onResult(SyncResult result) {
                 if (result.isSuccessful()) {
                     Vault vault = Vault.with(getActivity(), Space2.class);
-                    final List<Post> all = vault.fetch(Post.class).all();
+                    final List<Post> all = vault.fetch(Post.class).order("updated_at DESC").all();
 
 //                    final SharedPreferences ss = getActivity().getSharedPreferences("db", 0);
           /*          SharedPreferences.Editor editor = ss.edit();
@@ -101,7 +94,7 @@ public class MainActivity extends Fragment {
 
 
 
-                    final Set<Post> allSavedPosts = Paper.book().read("savedPosts", new HashSet<Post>());
+                    final Set<Post> allSavedPosts = Paper.book().read("savedPosts", new LinkedHashSet<Post>());
                     final Set<Post> allDiscaredPosts = Paper.book().read("discaredPosts", new HashSet<Post>());
 
                   /*  for(String discardeeSlug: in) {
@@ -123,10 +116,6 @@ public class MainActivity extends Fragment {
                     }
 
 
-//                    ss.edit().putStringSet("discardedSlugs", in).apply();
-
-                    //TODO
-                    //Remove the saved and discarded from all.
                     SwipeDeck cardStack = (SwipeDeck) getActivity().findViewById(R.id.swipe_deck);
                     final SwipeDeckAdapter adapter = new SwipeDeckAdapter(all, getActivity(), getFragmentManager());
                     cardStack.setAdapter(adapter);

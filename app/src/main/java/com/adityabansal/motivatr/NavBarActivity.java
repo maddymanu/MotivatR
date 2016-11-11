@@ -1,4 +1,5 @@
 package com.adityabansal.motivatr;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,7 +29,6 @@ public class NavBarActivity extends AppCompatActivity {
         setContentView(R.layout.navbar_main);
 
 
-
         viewPager = (ViewPager) findViewById(R.id.vp_horizontal_ntb);
 
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
@@ -50,7 +50,7 @@ public class NavBarActivity extends AppCompatActivity {
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.new_f),
-                        Color.parseColor("#1D287F")
+                        Color.parseColor("#5ebdcf")
                 ).title("Heart")
                         .badgeTitle("NTB")
                         .build()
@@ -58,44 +58,26 @@ public class NavBarActivity extends AppCompatActivity {
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.saved_ic),
-                        Color.parseColor("#1D287F")
+                        Color.parseColor("#5ebdcf")
                 ).title("Cup")
                         .badgeTitle("with")
                         .build()
         );
 
-
+//        navigationTabBar.setActiveColor(Color.RED);
         navigationTabBar.setModels(models);
         navigationTabBar.setViewPager(viewPager, 0);
 
-  /*      navigationTabBar.setTitleMode(NavigationTabBar.TitleMode.ALL);
-        navigationTabBar.set
-        navigationTabBar.setBadgeGravity(NavigationTabBar.BadgeGravity.BOTTOM);
-        navigationTabBar.setBadgePosition(NavigationTabBar.BadgePosition.CENTER);
-        navigationTabBar.setTypeface("fonts/custom_font.ttf");
-        navigationTabBar.setIsBadged(true);
-        navigationTabBar.setIsTitled(false);
-        navigationTabBar.setIsTinted(false);
-        navigationTabBar.setIsBadgeUseTypeface(true);
-        navigationTabBar.setBadgeBgColor(Color.RED);
-        navigationTabBar.setBadgeTitleColor(Color.WHITE);
-        navigationTabBar.setIsSwiped(true);
-//        navigationTabBar.setBgColor(Color.BLACK);
-        navigationTabBar.setBadgeSize(10);
-        navigationTabBar.setTitleSize(10);*/
 
-        navigationTabBar.setBgColor(Color.parseColor("#505CAF"));
+        navigationTabBar.setBgColor(Color.parseColor("#9ad6e1"));
         navigationTabBar.setIsSwiped(true);
         navigationTabBar.deselect();
         navigationTabBar.setIconSizeFraction(Float.valueOf("0.5"));
     }
 
 
-
-
-
-    public  class MyPagerAdapter extends FragmentStatePagerAdapter {
-        private  int NUM_ITEMS = 2;
+    public class MyPagerAdapter extends FragmentStatePagerAdapter {
+        private int NUM_ITEMS = 2;
         MainActivity m;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
@@ -114,16 +96,16 @@ public class NavBarActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: // Fragment # 0 - This will show FirstFragment//                    m.adapter_mypager = adapterViewPager;
-                    if(m == null){
-                        Log.d("CALLING POSITION 0" , "NEW MAIN ACTIVITY");
-                        m= new MainActivity();
+                    if (m == null) {
+                        Log.d("CALLING POSITION 0", "NEW MAIN ACTIVITY");
+                        m = new MainActivity();
                         return m;
 
-                    }else {
+                    } else {
                         return m;
                     }
                 case 1: // Fragment # 0 - This will show FirstFragment
-                    Log.d("CALLING POSITION 1" , "NEW FRAGMENT");
+                    Log.d("CALLING POSITION 1", "NEW FRAGMENT");
                     return new SavedPostsFragment();
 //
                 default:
@@ -140,14 +122,12 @@ public class NavBarActivity extends AppCompatActivity {
         }
 
 
-
     }
 
     @Override
-    public void onResume()
-    {  // After a pause OR at startup
+    public void onResume() {  // After a pause OR at startup
         super.onResume();
-        Log.d("NAV BAR" , "ON RESUME");
+        Log.d("NAV BAR", "ON RESUME");
     }
 
 /*

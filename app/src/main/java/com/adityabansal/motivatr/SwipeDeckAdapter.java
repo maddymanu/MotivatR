@@ -57,36 +57,36 @@ public class SwipeDeckAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         View v = convertView;
-        if(v == null){
+        if (v == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // normally use a viewholder
             v = inflater.inflate(R.layout.single_card_view, parent, false);
         }
-            final ImageView mainImg = (ImageView) v.findViewById(R.id.img);
-            final TextView title_textview = (TextView) v.findViewById(R.id.title_post);
+        final ImageView mainImg = (ImageView) v.findViewById(R.id.img);
+        final TextView title_textview = (TextView) v.findViewById(R.id.title_post);
 
 
-            String url = null;
-           try {
-               url =data.get(position).featuredImage.url();
-           } catch (NullPointerException e){
+        String url = null;
+        try {
+            url = data.get(position).featuredImage.url();
+        } catch (NullPointerException e) {
 
-           }
+        }
 
         try {
 
             Picasso.with(this.context).load(url).transform(new BlurTransformation(this.context)).fit().centerCrop().into(mainImg);
             title_textview.setText(data.get(position).title);
 
-        }catch (Exception e2) {
-            Log.d("EXCCC" , e2.toString());
+        } catch (Exception e2) {
+            Log.d("EXCCC", e2.toString());
         }
 
 
-                v.setOnClickListener(new View.OnClickListener() {
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Post item = (Post)   getItem(position);
+                Post item = (Post) getItem(position);
 /*
                 PostView nextFragment = new PostView();
                 Bundle args = new Bundle();
@@ -111,8 +111,6 @@ public class SwipeDeckAdapter extends BaseAdapter {
 
         return v;
     }
-
-
 
 
 }

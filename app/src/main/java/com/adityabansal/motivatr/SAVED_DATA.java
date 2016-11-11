@@ -15,7 +15,7 @@ public class SAVED_DATA {
     public static Set<Post> allSavedPosts = Paper.book().read("savedPosts", new LinkedHashSet<Post>());
 
 
-    public static void  writeNewPost(Post nePost) {
+    public static void writeNewPost(Post nePost) {
         allSavedPosts.add(nePost);
         Paper.book().write("savedPosts", allSavedPosts);
 

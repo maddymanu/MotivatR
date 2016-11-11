@@ -52,16 +52,15 @@ public class MainActivity extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
         this.inflater = inflater;
         this.container = container;
 
 
-        if(view != null) {
+        if (view != null) {
 //            savedInstanceState.
             return view;
         }
@@ -83,36 +82,17 @@ public class MainActivity extends Fragment {
                 .build();
 
         Vault.with(getActivity(), Space2.class).requestSync(SyncConfig.builder().setClient(client).build(), callback = new SyncCallback() {
-            @Override public void onResult(SyncResult result) {
+            @Override
+            public void onResult(SyncResult result) {
                 if (result.isSuccessful()) {
                     Vault vault = Vault.with(getActivity(), Space2.class);
                     final List<Post> all = vault.fetch(Post.class).limit(Integer.parseInt("25")).order("updated_at DESC").all();
 
-//                    final SharedPreferences ss = getActivity().getSharedPreferences("db", 0);
-          /*          SharedPreferences.Editor editor = ss.edit();
-                    editor.clear();
-                    editor.apply();
-*/
-
-//                    Set<String> hs = ss.getStringSet("discardedSlugs", new HashSet<String>());
-//                    final Set<String> in = new HashSet<String>(hs);
-
-
 
                     final Set<Post> allSavedPosts = SAVED_DATA.allSavedPosts;
-//                    final Set<Post> allSavedPosts = Paper.book().read("savedPosts", new LinkedHashSet<Post>());
                     final Set<Post> allDiscaredPosts = Paper.book().read("discaredPosts", new HashSet<Post>());
 
-                  /*  for(String discardeeSlug: in) {
-                        if (all.contains(discardeeSlug)) {
 
-                        }
-                    }*/
-           /*         for(Post p: all) {
-                        if(allSavedPosts.contains(p) || allDiscaredPosts.contains(p)) {
-                            all.remove(p);
-                        }
-                    }*/
 
                     for (Iterator<Post> it = all.iterator(); it.hasNext(); ) {
                         Post p = it.next();
@@ -145,7 +125,6 @@ public class MainActivity extends Fragment {
                         @Override
                         public void cardSwipedRight(int position) {
                             Log.i("MainActivity", "card was swiped right, position in adapter: " + position);
-
 
 
                             //TODO
@@ -184,7 +163,6 @@ public class MainActivity extends Fragment {
                     });
 
 
-
                 } else {
                     // Failure
                 }
@@ -194,17 +172,18 @@ public class MainActivity extends Fragment {
 
     }
 
-    @Override public void onDestroy() {
+    @Override
+    public void onDestroy() {
         Vault.cancel(callback);
         super.onDestroy();
     }
 
 
-    @Override public void onResume() {
+    @Override
+    public void onResume() {
         super.onResume();
-        Log.d("ON RESUME" , "MIAN ACT");
+        Log.d("ON RESUME", "MIAN ACT");
     }
-
 
 
 }

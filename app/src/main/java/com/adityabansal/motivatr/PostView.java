@@ -42,7 +42,7 @@ public class PostView extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(savedPost == true) {
+        if (savedPost == true) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.postview_menu, menu);
             return true;
@@ -72,7 +72,6 @@ public class PostView extends AppCompatActivity {
     }
 
 
-
     void PostView(Post p) {
         currPost = p;
     }
@@ -90,10 +89,6 @@ public class PostView extends AppCompatActivity {
         setContentView(R.layout.activity_post_view);
 
 
-
-
-
-
         titleTV = (TextView) findViewById(R.id.post_title);
         top_image_view = (ImageView) findViewById(R.id.top_postview_image);
 //        bodyTV = (TextView) findViewById(R.id.body_post);
@@ -101,12 +96,11 @@ public class PostView extends AppCompatActivity {
         currPost = Parcels.unwrap(getIntent().getParcelableExtra(Intents.EXTRA_POST));
         savedPost = getIntent().getExtras().getBoolean(Intents.SAVED_POST);
 
-        Log.d("DATA FROM POSTVIEW" , currPost.title+currPost.body);
+        Log.d("DATA FROM POSTVIEW", currPost.title + currPost.body);
 
 
         initImage();
         initText();
-
 
 
     }
@@ -151,7 +145,8 @@ public class PostView extends AppCompatActivity {
     }
 
 
-    @Override public void onDestroy() {
+    @Override
+    public void onDestroy() {
         super.onDestroy();
     }
 }

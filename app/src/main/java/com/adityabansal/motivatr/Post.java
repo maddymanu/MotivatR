@@ -17,25 +17,32 @@ import java.util.List;
 @Parcel
 public class Post extends Resource {
 
-    @Field String title;
+    @Field
+    String title;
 
-    @Field String slug;
+    @Field
+    String slug;
 
 //    @Field("author")
 //    List<Author> authors;
 
-    @Field String body;
+    @Field
+    String body;
 
   /*  @Field("category")
     List<Category> categories;*/
 
-    @Field List<String> tags;
+    @Field
+    List<String> tags;
 
-    @Field Asset featuredImage;
+    @Field
+    Asset featuredImage;
 
-    @Field String date;
+    @Field
+    String date;
 
-    @Field Boolean comments;
+    @Field
+    Boolean comments;
 
     public String title() {
         return title;

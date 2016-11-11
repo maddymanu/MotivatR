@@ -50,7 +50,7 @@ public class SavedPostsFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_savedposts, container, false);
 
         final Set<Post> allSavedPosts = SAVED_DATA.allSavedPosts;
-       final List<Post> savedReversedListPosts = new ArrayList<Post>(allSavedPosts);
+        final List<Post> savedReversedListPosts = new ArrayList<Post>(allSavedPosts);
         Collections.reverse(savedReversedListPosts);
 
 
@@ -67,7 +67,7 @@ public class SavedPostsFragment extends Fragment {
 
                 // Sending image id to PostView
                 Intent i = new Intent(getActivity(), PostView.class);
-                i.putExtra(Intents.SAVED_POST , true);
+                i.putExtra(Intents.SAVED_POST, true);
                 i.putExtra(Intents.EXTRA_POST, Parcels.wrap(savedReversedListPosts.get(position)));
                 startActivity(i);
             }
@@ -83,7 +83,7 @@ class ImageAdapter extends BaseAdapter {
     List<Post> savedPostsList;
 
     // Constructor
-    public ImageAdapter(Context c, List<Post> savedPosts){
+    public ImageAdapter(Context c, List<Post> savedPosts) {
         mContext = c;
         savedPostsList = savedPosts;
 
@@ -114,8 +114,6 @@ class ImageAdapter extends BaseAdapter {
 //        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setLayoutParams(new GridView.LayoutParams(800, 800));
         return imageView;*/
-
-
 
 
         View row = convertView;

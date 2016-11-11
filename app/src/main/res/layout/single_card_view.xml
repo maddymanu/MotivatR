@@ -29,6 +29,22 @@
             android:scaleType="fitXY"
             android:id="@+id/img"/>
 
+        <ImageView
+            android:id="@+id/left_image"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/leftswipe"
+            android:layout_alignTop="@+id/img"
+            android:layout_toLeftOf="@+id/img"
+            android:layout_toStartOf="@+id/img" />
+        <ImageView
+            android:id="@+id/right_image"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/rightswipe"
+            android:layout_toRightOf="@+id/img"
+            android:layout_toEndOf="@+id/img" />
+
 
         <TextView
             android:layout_width="wrap_content"

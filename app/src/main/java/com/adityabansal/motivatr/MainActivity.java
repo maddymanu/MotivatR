@@ -39,6 +39,8 @@ import rx.schedulers.Schedulers;
 public class MainActivity extends Fragment {
     SyncCallback callback;
     View view;
+    LayoutInflater inflater;
+    ViewGroup container;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,10 @@ public class MainActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                 Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
+        this.inflater = inflater;
+        this.container = container;
+
+
         if(view != null) {
 //            savedInstanceState.
             return view;
@@ -80,7 +86,7 @@ public class MainActivity extends Fragment {
             @Override public void onResult(SyncResult result) {
                 if (result.isSuccessful()) {
                     Vault vault = Vault.with(getActivity(), Space2.class);
-                    final List<Post> all = vault.fetch(Post.class).order("updated_at DESC").all();
+                    final List<Post> all = vault.fetch(Post.class).limit(Integer.parseInt("25")).order("updated_at DESC").all();
 
 //                    final SharedPreferences ss = getActivity().getSharedPreferences("db", 0);
           /*          SharedPreferences.Editor editor = ss.edit();
@@ -118,6 +124,11 @@ public class MainActivity extends Fragment {
 
                     SwipeDeck cardStack = (SwipeDeck) getActivity().findViewById(R.id.swipe_deck);
                     final SwipeDeckAdapter adapter = new SwipeDeckAdapter(all, getActivity(), getFragmentManager());
+
+
+                    cardStack.setLeftImage(R.id.left_image);
+                    cardStack.setRightImage(R.id.right_image);
+
                     cardStack.setAdapter(adapter);
 
                     cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
@@ -136,8 +147,12 @@ public class MainActivity extends Fragment {
                             Log.i("MainActivity", "card was swiped right, position in adapter: " + position);
 
 
+
+                            //TODO
+                            //change to hold only 50 saved
                             allSavedPosts.add(all.get(position));
                             Paper.book().write("savedPosts", allSavedPosts);
+
 
 
                             NavBarActivity.adapterViewPager.notifyDataSetChanged();
@@ -147,6 +162,13 @@ public class MainActivity extends Fragment {
                         @Override
                         public void cardsDepleted() {
                             Log.i("MainActivity", "no more cards");
+                            /*final int index = container.indexOfChild(view);
+                            container.removeView(view);
+                            view = inflater.inflate(R.layout.empty_feed , container, false);
+                            container.addView(view,index);*/
+
+                            NavBarActivity.viewPager.setCurrentItem(1);
+
                         }
 
                         @Override

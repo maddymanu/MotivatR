@@ -43,28 +43,22 @@ public class SavedPostsFragment extends Fragment {
 
     }
 
-//TODO add GridView to this screen
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_savedposts, container, false);
 
-        Log.d("SAVED POST FRAG" , "INIT");
-
         final Set<Post> allSavedPosts = Paper.book().read("savedPosts", new LinkedHashSet<Post>());
+       final List<Post> savedReversedListPosts = new ArrayList<Post>(allSavedPosts);
+        Collections.reverse(savedReversedListPosts);
 
 
-        for(Post p: allSavedPosts) {
-            Log.d("SAVED POST FRAG" , p.title);
-        }
-
-
+        //change to send already reverse arrayList
         GridView gridView = (GridView) view.findViewById(R.id.grid_view_saved_feed);
 
         // Instance of ImageAdapter Class
-        gridView.setAdapter(new ImageAdapter(getContext(), allSavedPosts));
+        gridView.setAdapter(new ImageAdapter(getContext(), savedReversedListPosts));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,9 +67,9 @@ public class SavedPostsFragment extends Fragment {
 
                 // Sending image id to FullScreenActivity
 
-                List<Post> savedPostsList =  new ArrayList<Post>(allSavedPosts);
+//                List<Post> savedPostsList =  new ArrayList<Post>(allSavedPosts);
                 Intent i = new Intent(getActivity(), PostView.class);
-                i.putExtra(Intents.EXTRA_POST, Parcels.wrap(savedPostsList.get(position)));
+                i.putExtra(Intents.EXTRA_POST, Parcels.wrap(savedReversedListPosts.get(position)));
                 startActivity(i);
             }
         });
@@ -90,11 +84,9 @@ class ImageAdapter extends BaseAdapter {
     List<Post> savedPostsList;
 
     // Constructor
-    public ImageAdapter(Context c, Set<Post> savedPosts){
+    public ImageAdapter(Context c, List<Post> savedPosts){
         mContext = c;
-//        this.savedPosts = savedPosts;
-        savedPostsList = new ArrayList<Post>(savedPosts);
-        Collections.reverse(savedPostsList);
+        savedPostsList = savedPosts;
 
     }
 

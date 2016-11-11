@@ -1,20 +1,13 @@
 package com.adityabansal.motivatr;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar.Model;
 
@@ -56,7 +49,7 @@ public class NavBarActivity extends AppCompatActivity {
         models.add(model);*/
         models.add(
                 new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_second),
+                        getResources().getDrawable(R.drawable.new_f),
                         Color.parseColor("#1D287F")
                 ).title("Heart")
                         .badgeTitle("NTB")
@@ -64,7 +57,7 @@ public class NavBarActivity extends AppCompatActivity {
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_second),
+                        getResources().getDrawable(R.drawable.saved_ic),
                         Color.parseColor("#1D287F")
                 ).title("Cup")
                         .badgeTitle("with")

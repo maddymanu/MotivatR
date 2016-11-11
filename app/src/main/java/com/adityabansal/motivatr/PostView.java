@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +18,9 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import io.paperdb.Paper;
 import us.feras.mdv.MarkdownView;
 
@@ -23,14 +29,49 @@ import us.feras.mdv.MarkdownView;
  * Created by adityabansal on 11/5/16.
  */
 
+
+//TODO add delete functionality
+
 public class PostView extends AppCompatActivity {
     private Post currPost;
+    private boolean savedPost;
 
-//    ImageView main;
-
-    TextView titleTV, bodyTV;
+    TextView titleTV;
     MarkdownView bodyMV;
     ImageView top_image_view;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(savedPost == true) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.postview_menu, menu);
+            return true;
+        }
+        return false;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.delete_post_menu:
+
+                Set<Post> allSavedPosts = Paper.book().read("savedPosts", new LinkedHashSet<Post>());
+                allSavedPosts.remove(currPost);
+                Paper.book().write("savedPosts", allSavedPosts);
+
+                NavBarActivity.adapterViewPager.notifyDataSetChanged();
+
+
+                Log.d("POST VIEW" , "DELETE PRESSED");
+                super.onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
 
@@ -48,8 +89,7 @@ public class PostView extends AppCompatActivity {
 //        Paper.init(getActivity());
 
 
-
-                setContentView(R.layout.activity_post_view);
+        setContentView(R.layout.activity_post_view);
 
 
 
@@ -61,6 +101,7 @@ public class PostView extends AppCompatActivity {
 //        bodyTV = (TextView) findViewById(R.id.body_post);
         bodyMV = (MarkdownView) findViewById(R.id.markdownViewBody);
         currPost = Parcels.unwrap(getIntent().getParcelableExtra(Intents.EXTRA_POST));
+        savedPost = getIntent().getExtras().getBoolean(Intents.SAVED_POST);
 
         Log.d("DATA FROM POSTVIEW" , currPost.title+currPost.body);
 

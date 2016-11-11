@@ -68,7 +68,9 @@ public class SavedPostsFragment extends Fragment {
                 // Sending image id to FullScreenActivity
 
 //                List<Post> savedPostsList =  new ArrayList<Post>(allSavedPosts);
+                //TODO add new Extra
                 Intent i = new Intent(getActivity(), PostView.class);
+                i.putExtra(Intents.SAVED_POST , true);
                 i.putExtra(Intents.EXTRA_POST, Parcels.wrap(savedReversedListPosts.get(position)));
                 startActivity(i);
             }

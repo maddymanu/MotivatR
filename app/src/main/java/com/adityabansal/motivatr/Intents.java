@@ -15,5 +15,7 @@ public class Intents {
 
 //    public static final String EXTRA_CATEGORY = "EXTRA_CATEGORY";
 
-    public static final String EXTRA_POST = "EXTRA_PRODUCT";
+    public static final String EXTRA_POST = "EXTRA_POST";
+
+    public static final String SAVED_POST = "SAVED_POST";
 }

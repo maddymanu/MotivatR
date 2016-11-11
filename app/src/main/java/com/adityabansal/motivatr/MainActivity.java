@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.daprlabs.cardstack.SwipeDeck;
 
@@ -125,7 +126,7 @@ public class MainActivity extends Fragment {
                     SwipeDeck cardStack = (SwipeDeck) getActivity().findViewById(R.id.swipe_deck);
                     final SwipeDeckAdapter adapter = new SwipeDeckAdapter(all, getActivity(), getFragmentManager());
 
-
+                    final TextView emptyListTV = (TextView) getActivity().findViewById(R.id.empty_list_tv);
                     cardStack.setLeftImage(R.id.left_image);
                     cardStack.setRightImage(R.id.right_image);
 
@@ -149,7 +150,8 @@ public class MainActivity extends Fragment {
 
 
                             //TODO
-                            //change to hold only 50 saved
+
+                            //change to hold only 50 saved & remove delete function bug
                             allSavedPosts.add(all.get(position));
                             Paper.book().write("savedPosts", allSavedPosts);
 
@@ -166,8 +168,9 @@ public class MainActivity extends Fragment {
                             container.removeView(view);
                             view = inflater.inflate(R.layout.empty_feed , container, false);
                             container.addView(view,index);*/
-
-                            NavBarActivity.viewPager.setCurrentItem(1);
+                            emptyListTV.setVisibility(View.VISIBLE);
+                            NavBarActivity.adapterViewPager.notifyDataSetChanged();
+//                            NavBarActivity.viewPager.setCurrentItem(1);
 
                         }
 

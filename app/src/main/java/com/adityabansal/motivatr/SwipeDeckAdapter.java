@@ -102,7 +102,7 @@ public class SwipeDeckAdapter extends BaseAdapter {
                         .addToBackStack(null)
                         .commit();*/
 
-
+                //TODO put slug or something to add delete
                 context.startActivity(new Intent(context, PostView.class)
                         .putExtra(Intents.EXTRA_POST, Parcels.wrap(item)));
 

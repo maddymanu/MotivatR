@@ -49,7 +49,7 @@ public class SavedPostsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.activity_savedposts, container, false);
 
-        final Set<Post> allSavedPosts = Paper.book().read("savedPosts", new LinkedHashSet<Post>());
+        final Set<Post> allSavedPosts = SAVED_DATA.allSavedPosts;
        final List<Post> savedReversedListPosts = new ArrayList<Post>(allSavedPosts);
         Collections.reverse(savedReversedListPosts);
 
@@ -65,10 +65,7 @@ public class SavedPostsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                // Sending image id to FullScreenActivity
-
-//                List<Post> savedPostsList =  new ArrayList<Post>(allSavedPosts);
-                //TODO add new Extra
+                // Sending image id to PostView
                 Intent i = new Intent(getActivity(), PostView.class);
                 i.putExtra(Intents.SAVED_POST , true);
                 i.putExtra(Intents.EXTRA_POST, Parcels.wrap(savedReversedListPosts.get(position)));

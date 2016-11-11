@@ -57,14 +57,12 @@ public class PostView extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.delete_post_menu:
 
-                Set<Post> allSavedPosts = Paper.book().read("savedPosts", new LinkedHashSet<Post>());
-                allSavedPosts.remove(currPost);
-                Paper.book().write("savedPosts", allSavedPosts);
+//                Set<Post> allSavedPosts = Paper.book().read("savedPosts", new LinkedHashSet<Post>());
+//                allSavedPosts.remove(currPost);
+//                Paper.book().write("savedPosts", allSavedPosts);
+                SAVED_DATA.deletePost(currPost);
 
                 NavBarActivity.adapterViewPager.notifyDataSetChanged();
-
-
-                Log.d("POST VIEW" , "DELETE PRESSED");
                 super.onBackPressed();
                 return true;
 

@@ -47,7 +47,7 @@ public class MainActivity extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Paper.init(getActivity());
-//        Paper.book().destroy();
+        Paper.book().destroy();
 
     }
 
@@ -68,7 +68,6 @@ public class MainActivity extends Fragment {
         view = inflater.inflate(R.layout.activity_main, container, false);
 //        setContentView(R.layout.activity_main);
 
-        Paper.book().destroy();
 
         setView();
 
@@ -100,8 +99,8 @@ public class MainActivity extends Fragment {
 
 
 
-
-                    final Set<Post> allSavedPosts = Paper.book().read("savedPosts", new LinkedHashSet<Post>());
+                    final Set<Post> allSavedPosts = SAVED_DATA.allSavedPosts;
+//                    final Set<Post> allSavedPosts = Paper.book().read("savedPosts", new LinkedHashSet<Post>());
                     final Set<Post> allDiscaredPosts = Paper.book().read("discaredPosts", new HashSet<Post>());
 
                   /*  for(String discardeeSlug: in) {
@@ -150,11 +149,10 @@ public class MainActivity extends Fragment {
 
 
                             //TODO
-
                             //change to hold only 50 saved & remove delete function bug
-                            allSavedPosts.add(all.get(position));
-                            Paper.book().write("savedPosts", allSavedPosts);
-
+//                            allSavedPosts.add(all.get(position));
+//                            Paper.book().write("savedPosts", allSavedPosts);
+                            SAVED_DATA.writeNewPost(all.get(position));
 
 
                             NavBarActivity.adapterViewPager.notifyDataSetChanged();

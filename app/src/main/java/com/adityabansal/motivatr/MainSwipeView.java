@@ -37,7 +37,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends Fragment {
+public class MainSwipeView extends Fragment {
     SyncCallback callback;
     View view;
     LayoutInflater inflater;
@@ -114,7 +114,7 @@ public class MainActivity extends Fragment {
                     cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
                         @Override
                         public void cardSwipedLeft(int position) {
-                            Log.i("MainActivity", "card was swiped left, position in adapter: " + position);
+                            Log.i("MainSwipeView", "card was swiped left, position in adapter: " + position);
                             //all.get(position).status = "LEFT SWIPED";
 //                            in.add(all.get(position).slug);
 //                            ss.edit().putStringSet("discardedSlugs", in).apply();
@@ -124,7 +124,7 @@ public class MainActivity extends Fragment {
 
                         @Override
                         public void cardSwipedRight(int position) {
-                            Log.i("MainActivity", "card was swiped right, position in adapter: " + position);
+                            Log.i("MainSwipeView", "card was swiped right, position in adapter: " + position);
 
 
                             //TODO
@@ -140,7 +140,7 @@ public class MainActivity extends Fragment {
 
                         @Override
                         public void cardsDepleted() {
-                            Log.i("MainActivity", "no more cards");
+                            Log.i("MainSwipeView", "no more cards");
                             /*final int index = container.indexOfChild(view);
                             container.removeView(view);
                             view = inflater.inflate(R.layout.empty_feed , container, false);

@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar.Model;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 
@@ -21,12 +22,16 @@ import java.util.ArrayList;
 public class NavBarActivity extends AppCompatActivity {
     public static FragmentStatePagerAdapter adapterViewPager;
     public static ViewPager viewPager;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navbar_main);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 
         viewPager = (ViewPager) findViewById(R.id.vp_horizontal_ntb);
@@ -78,7 +83,7 @@ public class NavBarActivity extends AppCompatActivity {
 
     public class MyPagerAdapter extends FragmentStatePagerAdapter {
         private int NUM_ITEMS = 2;
-        MainActivity m;
+        MainSwipeView m;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
 
@@ -98,7 +103,7 @@ public class NavBarActivity extends AppCompatActivity {
                 case 0: // Fragment # 0 - This will show FirstFragment//                    m.adapter_mypager = adapterViewPager;
                     if (m == null) {
                         Log.d("CALLING POSITION 0", "NEW MAIN ACTIVITY");
-                        m = new MainActivity();
+                        m = new MainSwipeView();
                         return m;
 
                     } else {

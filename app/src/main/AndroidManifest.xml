@@ -14,6 +14,9 @@
          android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".IntroActivity"
+            android:label="Tutorial" />
+
         <activity android:name=".NavBarActivity"
             android:launchMode="singleTop"
             >

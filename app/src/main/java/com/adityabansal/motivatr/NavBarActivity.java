@@ -55,7 +55,7 @@ public class NavBarActivity extends AppCompatActivity {
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.new_f),
-                        Color.parseColor("#5ebdcf")
+                        Color.parseColor("#0E74FA")
                 ).title("Heart")
                         .badgeTitle("NTB")
                         .build()
@@ -63,7 +63,7 @@ public class NavBarActivity extends AppCompatActivity {
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.saved_ic),
-                        Color.parseColor("#5ebdcf")
+                        Color.parseColor("#0E74FA")
                 ).title("Cup")
                         .badgeTitle("with")
                         .build()
@@ -74,7 +74,7 @@ public class NavBarActivity extends AppCompatActivity {
         navigationTabBar.setViewPager(viewPager, 0);
 
 
-        navigationTabBar.setBgColor(Color.parseColor("#9ad6e1"));
+        navigationTabBar.setBgColor(Color.parseColor("#0DA5ED"));
         navigationTabBar.setIsSwiped(true);
         navigationTabBar.deselect();
         navigationTabBar.setIconSizeFraction(Float.valueOf("0.5"));

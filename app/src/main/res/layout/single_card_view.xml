@@ -1,27 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_gravity="center"
     android:layout_width="match_parent"
-    card_view:cardCornerRadius="6dp"
-    card_view:cardElevation="10dp"
-    >
-    <RelativeLayout
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true"
+    android:layout_margin="8dp"
+    android:gravity="center_horizontal"
+    android:padding="25dp">
+
+>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                tools:src="@drawable/ic_second"
+                android:id="@+id/offer_image"
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:layout_height="fill_parent" />
+
+            <ImageView
+                android:layout_weight="2"
+                android:id="@+id/left_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/leftswipe"
+                android:layout_centerVertical="true"/>
+            <ImageView
+                android:layout_weight="2"
+                android:id="@+id/right_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/rightswipe"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_alignLeft="@id/offer_image"
+                android:layout_alignTop="@id/offer_image"
+                android:layout_alignRight="@id/offer_image"
+                android:layout_alignBottom="@id/offer_image"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:id="@+id/title_post"
+                tools:textColor="@android:color/white"
+                android:textStyle="normal|bold"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                tools:textSize="20sp"/>
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+<!--    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:minHeight="200dp">
 
 
-      <!--  <TextView
+      &lt;!&ndash;  <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/slug"
-            android:layout_gravity="center_horizontal" />-->
+            android:layout_gravity="center_horizontal" />&ndash;&gt;
+
+ &lt;!&ndash;       <ImageView
+            android:id="@+id/right_image"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/rightswipe"
+            android:layout_toRightOf="@+id/img"
+            android:layout_toEndOf="@+id/img" />&ndash;&gt;
+
 
         <ImageView
             android:layout_width="fill_parent"
@@ -29,21 +108,14 @@
             android:scaleType="fitXY"
             android:id="@+id/img"/>
 
-        <ImageView
+&lt;!&ndash;        <ImageView
             android:id="@+id/left_image"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:src="@drawable/leftswipe"
             android:layout_alignTop="@+id/img"
             android:layout_toLeftOf="@+id/img"
-            android:layout_toStartOf="@+id/img" />
-        <ImageView
-            android:id="@+id/right_image"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:src="@drawable/rightswipe"
-            android:layout_toRightOf="@+id/img"
-            android:layout_toEndOf="@+id/img" />
+            android:layout_toStartOf="@+id/img" />&ndash;&gt;
 
 
         <TextView
@@ -54,10 +126,9 @@
             android:layout_alignTop="@id/img"
             android:layout_alignRight="@id/img"
             android:layout_alignBottom="@id/img"
-            android:layout_margin="10dp"
-            android:gravity="bottom"
+            android:layout_centerInParent="true"
+            android:gravity="center"
             android:id="@+id/title_post"
-            android:layout_gravity="center_vertical"
             tools:textColor="@android:color/white"
             android:textStyle="normal|bold"
             android:textColor="@android:color/white"
@@ -65,5 +136,5 @@
             android:textAllCaps="true"
             tools:textSize="20sp"/>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 </android.support.v7.widget.CardView>

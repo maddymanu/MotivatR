@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.daprlabs.cardstack.SwipeDeck;
-
 import com.contentful.java.cda.CDAArray;
 import com.contentful.java.cda.CDACallback;
 import com.contentful.java.cda.CDAClient;
@@ -23,6 +21,7 @@ import com.contentful.vault.SyncCallback;
 import com.contentful.vault.SyncConfig;
 import com.contentful.vault.SyncResult;
 import com.contentful.vault.Vault;
+import com.daprlabs.aaron.swipedeck.SwipeDeck;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -106,13 +105,46 @@ public class MainSwipeView extends Fragment {
                     final SwipeDeckAdapter adapter = new SwipeDeckAdapter(all, getActivity(), getFragmentManager());
 
                     final TextView emptyListTV = (TextView) getActivity().findViewById(R.id.empty_list_tv);
-                    cardStack.setLeftImage(R.id.left_image);
-                    cardStack.setRightImage(R.id.right_image);
 
                     cardStack.setAdapter(adapter);
 
-                    cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
+                    cardStack.setLeftImage(R.id.left_image);
+                    cardStack.setRightImage(R.id.right_image);
+
+
+                    cardStack.setCallback(new SwipeDeck.SwipeDeckCallback() {
+
+
                         @Override
+                        public void cardSwipedLeft(long stableId) {
+
+                            Log.i("MainSwipeView", "card was swiped left, position in adapter: " + stableId);
+                            //all.get(position).status = "LEFT SWIPED";
+//                            in.add(all.get(position).slug);
+//                            ss.edit().putStringSet("discardedSlugs", in).apply();
+                            allDiscaredPosts.add(all.get((int)stableId));
+                            Paper.book().write("discaredPosts", allDiscaredPosts);
+
+                        }
+
+                        @Override
+                        public void cardSwipedRight(long stableId) {
+
+                            Log.i("MainSwipeView", "card was swiped right, position in adapter: " + stableId);
+
+
+                            //TODO
+                            //change to hold only 50 saved & remove delete function bug
+//                            allSavedPosts.add(all.get(position));
+//                            Paper.book().write("savedPosts", allSavedPosts);
+                            SAVED_DATA.writeNewPost(all.get((int)stableId));
+
+
+                            NavBarActivity.adapterViewPager.notifyDataSetChanged();
+
+                        }
+
+/*                        @Override
                         public void cardSwipedLeft(int position) {
                             Log.i("MainSwipeView", "card was swiped left, position in adapter: " + position);
                             //all.get(position).status = "LEFT SWIPED";
@@ -141,25 +173,17 @@ public class MainSwipeView extends Fragment {
                         @Override
                         public void cardsDepleted() {
                             Log.i("MainSwipeView", "no more cards");
-                            /*final int index = container.indexOfChild(view);
+                            *//*final int index = container.indexOfChild(view);
                             container.removeView(view);
                             view = inflater.inflate(R.layout.empty_feed , container, false);
-                            container.addView(view,index);*/
+                            container.addView(view,index);*//*
                             emptyListTV.setVisibility(View.VISIBLE);
                             NavBarActivity.adapterViewPager.notifyDataSetChanged();
 //                            NavBarActivity.viewPager.setCurrentItem(1);
 
-                        }
+                        }*/
 
-                        @Override
-                        public void cardActionDown() {
 
-                        }
-
-                        @Override
-                        public void cardActionUp() {
-
-                        }
                     });
 
 

@@ -62,7 +62,7 @@ public class SwipeDeckAdapter extends BaseAdapter {
             // normally use a viewholder
             v = inflater.inflate(R.layout.single_card_view, parent, false);
         }
-        final ImageView mainImg = (ImageView) v.findViewById(R.id.img);
+        final ImageView mainImg = (ImageView) v.findViewById(R.id.offer_image);
         final TextView title_textview = (TextView) v.findViewById(R.id.title_post);
 
 
@@ -75,7 +75,7 @@ public class SwipeDeckAdapter extends BaseAdapter {
 
         try {
 
-            Picasso.with(this.context).load(url).transform(new BlurTransformation(this.context)).fit().centerCrop().into(mainImg);
+            Picasso.with(this.context).load(url).fit().centerCrop().into(mainImg);
             title_textview.setText(data.get(position).title);
 
         } catch (Exception e2) {
@@ -87,22 +87,8 @@ public class SwipeDeckAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Post item = (Post) getItem(position);
-/*
-                PostView nextFragment = new PostView();
-                Bundle args = new Bundle();
-                args.putParcelable("post", Parcels.wrap(item));
-                nextFragment.setArguments(args);*/
 
-//                getFr
-//                FragmentManager fragmentManager = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                /* fragmentManager.beginTransaction()
-                        .replace(R.id.first_fragment_root_id, nextFragment,"TAG")
-                        .addToBackStack(null)
-                        .commit();*/
-
-                //TODO put slug or something to add delete
                 context.startActivity(new Intent(context, PostView.class)
                         .putExtra(Intents.EXTRA_POST, Parcels.wrap(item)));
 

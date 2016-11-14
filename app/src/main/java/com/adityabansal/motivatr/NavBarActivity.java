@@ -44,9 +44,9 @@ public class NavBarActivity extends AppCompatActivity {
                 SharedPreferences getPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getBaseContext());
 
-                SharedPreferences.Editor editor = getPrefs.edit();
+           /*     SharedPreferences.Editor editor = getPrefs.edit();
                 editor.clear();
-                editor.commit();
+                editor.commit();*/
 
                 //  Create a new boolean and preference and set it to true
                 boolean isFirstStart = getPrefs.getBoolean("firstStart", true);

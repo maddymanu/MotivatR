@@ -11,8 +11,6 @@ public class Intents {
 
     private static final String PACKAGE_NAME = "com.adityabansal.motivatr";
 
-    public static final String ACTION_CHANGE_SPACE = PACKAGE_NAME + ".ACTION_CHANGE_SPACE";
-    
     public static final String EXTRA_POST = "EXTRA_POST";
 
     public static final String SAVED_POST = "SAVED_POST";

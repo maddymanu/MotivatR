@@ -30,18 +30,25 @@ import us.feras.mdv.MarkdownView;
  */
 
 
-//TODO add delete functionality
-
 public class PostView extends AppCompatActivity {
+    //To store the curr post being displayed
     private Post currPost;
+
+    //boolean to store whether its a stored post on just clicked on
     private boolean savedPost;
 
-    TextView titleTV;
-    MarkdownView bodyMV;
-    ImageView top_image_view;
+    //Text View to hold the title
+    private TextView titleTV;
+
+    //Body view, of MD format.
+    private MarkdownView bodyMV;
+
+    //Image View to store header image
+    private ImageView top_image_view;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //Only create the options menu if we want to delete the post.
         if (savedPost == true) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.postview_menu, menu);
@@ -56,13 +63,13 @@ public class PostView extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.delete_post_menu:
-
-//                Set<Post> allSavedPosts = Paper.book().read("savedPosts", new LinkedHashSet<Post>());
-//                allSavedPosts.remove(currPost);
-//                Paper.book().write("savedPosts", allSavedPosts);
+                //Delete the post from our Stored Data
                 SAVED_DATA.deletePost(currPost);
 
+                //Notify the gridview that our data has changed
                 NavBarActivity.adapterViewPager.notifyDataSetChanged();
+
+                //go back to parent activity
                 super.onBackPressed();
                 return true;
 
@@ -71,34 +78,22 @@ public class PostView extends AppCompatActivity {
         }
     }
 
-
-    void PostView(Post p) {
-        currPost = p;
-    }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Bundle bundle = this.getArguments();
-//        currPost = Parcels.unwrap(bundle.getParcelable("post"));
-//        Paper.init(getActivity());
-
-
         setContentView(R.layout.activity_post_view);
 
-
+        //Assigning XML fields
         titleTV = (TextView) findViewById(R.id.post_title);
         top_image_view = (ImageView) findViewById(R.id.top_postview_image);
-//        bodyTV = (TextView) findViewById(R.id.body_post);
         bodyMV = (MarkdownView) findViewById(R.id.markdownViewBody);
+
+        //Getting the data from the passed in Intent
         currPost = Parcels.unwrap(getIntent().getParcelableExtra(Intents.EXTRA_POST));
         savedPost = getIntent().getExtras().getBoolean(Intents.SAVED_POST);
 
-        Log.d("DATA FROM POSTVIEW", currPost.title + currPost.body);
-
-
+        //Displaying article
         initImage();
         initText();
 
@@ -109,39 +104,9 @@ public class PostView extends AppCompatActivity {
         Picasso.with(getApplicationContext()).load(currPost.featuredImage.url()).fit().centerCrop().into(top_image_view);
     }
 
-
-/*
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-
-        View view = inflater.inflate(R.layout.activity_post_view, container, false);
-//        setContentView(R.layout.activity_post_view);
-
-
-
-
-
-
-        titleTV = (TextView) view.findViewById(R.id.post_title);
-         bodyTV = (TextView) view.findViewById(R.id.body_post);
-        bodyMV = (MarkdownView) view.findViewById(R.id.markdownViewBody);
-//        currPost = Parcels.unwrap(getActivity().getIntent().getParcelableExtra(Intents.EXTRA_POST));
-
-        Log.d("DATA FROM POSTVIEW" , currPost.title+currPost.body);
-
-
-        initText();
-
-        return view;
-
-    }*/
-
     private void initText() {
-
         titleTV.setText(currPost.title);
         bodyMV.loadMarkdown(currPost.body);
-
     }
 
 

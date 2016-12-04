@@ -13,36 +13,36 @@ import org.parceler.Parcel;
 
 import java.util.List;
 
+/**
+ * POST - Container class for CMS data type. Easily modifiable.
+ */
 @ContentType("2wKn6yEnZewu2SCCkus4as")
 @Parcel
 public class Post extends Resource {
 
+    //Public fields for Parcelable format.
     @Field
-    String title;
-
-    @Field
-    String slug;
-
-//    @Field("author")
-//    List<Author> authors;
+    public String title;
 
     @Field
-    String body;
+    public String slug;
 
-  /*  @Field("category")
-    List<Category> categories;*/
 
     @Field
-    List<String> tags;
+    public String body;
+
 
     @Field
-    Asset featuredImage;
+    public List<String> tags;
 
     @Field
-    String date;
+    public Asset featuredImage;
 
     @Field
-    Boolean comments;
+    public String date;
+
+    @Field
+    public Boolean comments;
 
     public String title() {
         return title;
@@ -52,17 +52,9 @@ public class Post extends Resource {
         return slug;
     }
 
-/*    public List<Author> authors() {
-        return authors;
-    }*/
-
     public String body() {
         return body;
     }
-
-/*    public List<Category> categories() {
-        return categories;
-    }*/
 
     public List<String> tags() {
         return tags;

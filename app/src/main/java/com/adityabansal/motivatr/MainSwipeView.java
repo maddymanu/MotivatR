@@ -37,10 +37,10 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class MainSwipeView extends Fragment {
-    SyncCallback callback;
-    View view;
-    LayoutInflater inflater;
-    ViewGroup container;
+    private SyncCallback callback;
+    private View view;
+    private LayoutInflater inflater;
+    private ViewGroup container;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,13 +60,9 @@ public class MainSwipeView extends Fragment {
 
 
         if (view != null) {
-//            savedInstanceState.
             return view;
         }
         view = inflater.inflate(R.layout.activity_main, container, false);
-//        setContentView(R.layout.activity_main);
-
-
         setView();
 
         return view;
@@ -75,24 +71,27 @@ public class MainSwipeView extends Fragment {
 
     private void setView() {
 
-        CDAClient client = CDAClient.builder()
+         final CDAClient client = CDAClient.builder()
                 .setSpace("o8ueiznwl6xg")
                 .setToken("999b58e557abc1bf4292817e83b822b3eb7034e68e01799c0b6afa6a88c03f82")
                 .build();
 
+        //Synchronised method to get data from the CMS
         Vault.with(getActivity(), Space2.class).requestSync(SyncConfig.builder().setClient(client).build(), callback = new SyncCallback() {
             @Override
             public void onResult(SyncResult result) {
                 if (result.isSuccessful()) {
+
+                    //Fetch the new posts ordered by date.
                     Vault vault = Vault.with(getActivity(), Space2.class);
                     final List<Post> all = vault.fetch(Post.class).limit(Integer.parseInt("25")).order("updated_at DESC").all();
 
-
+                    //Fet the discarded/saved posts
                     final Set<Post> allSavedPosts = SAVED_DATA.allSavedPosts;
                     final Set<Post> allDiscaredPosts = Paper.book().read("discaredPosts", new HashSet<Post>());
 
 
-
+                    //From the list of posts we get, remove the saved/discarded. Suboptimal, change this.
                     for (Iterator<Post> it = all.iterator(); it.hasNext(); ) {
                         Post p = it.next();
                         if (allSavedPosts.contains(p) || allDiscaredPosts.contains(p)) {
@@ -100,28 +99,24 @@ public class MainSwipeView extends Fragment {
                         }
                     }
 
-
+                    //Creating the main Swipe Deck & its adapater
                     SwipeDeck cardStack = (SwipeDeck) getActivity().findViewById(R.id.swipe_deck);
                     final SwipeDeckAdapter adapter = new SwipeDeckAdapter(all, getActivity(), getFragmentManager());
 
+                    //Text view to show the empty List. TODO change
                     final TextView emptyListTV = (TextView) getActivity().findViewById(R.id.empty_list_tv);
 
                     cardStack.setAdapter(adapter);
-
                     cardStack.setLeftImage(R.id.left_image);
                     cardStack.setRightImage(R.id.right_image);
 
-
+                    //Callback methods for the deck
                     cardStack.setCallback(new SwipeDeck.SwipeDeckCallback() {
-
-
                         @Override
                         public void cardSwipedLeft(long stableId) {
 
                             Log.i("MainSwipeView", "card was swiped left, position in adapter: " + stableId);
-                            //all.get(position).status = "LEFT SWIPED";
-//                            in.add(all.get(position).slug);
-//                            ss.edit().putStringSet("discardedSlugs", in).apply();
+                            //Put this post in the discared posts //TODO change to SAVED DATA
                             allDiscaredPosts.add(all.get((int)stableId));
                             Paper.book().write("discaredPosts", allDiscaredPosts);
 
@@ -131,57 +126,13 @@ public class MainSwipeView extends Fragment {
                         public void cardSwipedRight(long stableId) {
 
                             Log.i("MainSwipeView", "card was swiped right, position in adapter: " + stableId);
-
-
                             //TODO
                             //change to hold only 50 saved & remove delete function bug
-//                            allSavedPosts.add(all.get(position));
-//                            Paper.book().write("savedPosts", allSavedPosts);
                             SAVED_DATA.writeNewPost(all.get((int)stableId));
-
-
                             NavBarActivity.adapterViewPager.notifyDataSetChanged();
 
                         }
 
-/*                        @Override
-                        public void cardSwipedLeft(int position) {
-                            Log.i("MainSwipeView", "card was swiped left, position in adapter: " + position);
-                            //all.get(position).status = "LEFT SWIPED";
-//                            in.add(all.get(position).slug);
-//                            ss.edit().putStringSet("discardedSlugs", in).apply();
-                            allDiscaredPosts.add(all.get(position));
-                            Paper.book().write("discaredPosts", allDiscaredPosts);
-                        }
-
-                        @Override
-                        public void cardSwipedRight(int position) {
-                            Log.i("MainSwipeView", "card was swiped right, position in adapter: " + position);
-
-
-                            //TODO
-                            //change to hold only 50 saved & remove delete function bug
-//                            allSavedPosts.add(all.get(position));
-//                            Paper.book().write("savedPosts", allSavedPosts);
-                            SAVED_DATA.writeNewPost(all.get(position));
-
-
-                            NavBarActivity.adapterViewPager.notifyDataSetChanged();
-
-                        }
-
-                        @Override
-                        public void cardsDepleted() {
-                            Log.i("MainSwipeView", "no more cards");
-                            *//*final int index = container.indexOfChild(view);
-                            container.removeView(view);
-                            view = inflater.inflate(R.layout.empty_feed , container, false);
-                            container.addView(view,index);*//*
-                            emptyListTV.setVisibility(View.VISIBLE);
-                            NavBarActivity.adapterViewPager.notifyDataSetChanged();
-//                            NavBarActivity.viewPager.setCurrentItem(1);
-
-                        }*/
 
 
                     });
@@ -206,7 +157,6 @@ public class MainSwipeView extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("ON RESUME", "MIAN ACT");
     }
 
 

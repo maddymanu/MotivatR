@@ -23,11 +23,11 @@ import java.util.ArrayList;
  */
 
 public class NavBarActivity extends AppCompatActivity {
+
+    //publuc because we need them from another activity.
     public static FragmentStatePagerAdapter adapterViewPager;
     public static ViewPager viewPager;
     private FirebaseAnalytics mFirebaseAnalytics;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,25 +73,19 @@ public class NavBarActivity extends AppCompatActivity {
         // Start the thread
         t.start();
 
-
+        //setting the public variables
         viewPager = (ViewPager) findViewById(R.id.vp_horizontal_ntb);
-
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapterViewPager);
 //        viewPager.setCurrentItem(1);
 
+        //Getting the bottom navigation bar
         final NavigationTabBar navigationTabBar = (NavigationTabBar) findViewById(R.id.ntb);
+
+        //2 models for the tab bar
         final ArrayList<Model> models = new ArrayList<>();
 
-/*        Model model;
-        model = new Model();
-        model.setTitle("Here some title to model");
-        model.hideBadge();
-        model.showBadge();
-        model.toggleBadge();
-        model.updateBadgeTitle("Here some title like NEW or some integer value");
 
-        models.add(model);*/
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.new_f),
@@ -109,24 +103,21 @@ public class NavBarActivity extends AppCompatActivity {
                         .build()
         );
 
-//        navigationTabBar.setActiveColor(Color.RED);
+        //setting the nav bar properties.
         navigationTabBar.setModels(models);
         navigationTabBar.setViewPager(viewPager, 0);
-
-
         navigationTabBar.setBgColor(Color.parseColor("#0DA5ED"));
         navigationTabBar.setIsSwiped(true);
         navigationTabBar.deselect();
         navigationTabBar.setIconSizeFraction(Float.valueOf("0.5"));
     }
 
-
+    //Custom Adapter to show the swipe view
     public class MyPagerAdapter extends FragmentStatePagerAdapter {
-        private int NUM_ITEMS = 2;
-        MainSwipeView m;
+        private final int NUM_ITEMS = 2;
+        private  MainSwipeView m;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
-
             super(fragmentManager);
         }
 
@@ -140,17 +131,15 @@ public class NavBarActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0: // Fragment # 0 - This will show FirstFragment//                    m.adapter_mypager = adapterViewPager;
+                case 0: // Fragment # 0 - This will show the feed view
                     if (m == null) {
-                        Log.d("CALLING POSITION 0", "NEW MAIN ACTIVITY");
                         m = new MainSwipeView();
                         return m;
 
                     } else {
                         return m;
                     }
-                case 1: // Fragment # 0 - This will show FirstFragment
-                    Log.d("CALLING POSITION 1", "NEW FRAGMENT");
+                case 1: // Fragment # 1 - This will show the saved posts grudview
                     return new SavedPostsFragment();
 //
                 default:
@@ -172,15 +161,7 @@ public class NavBarActivity extends AppCompatActivity {
     @Override
     public void onResume() {  // After a pause OR at startup
         super.onResume();
-        Log.d("NAV BAR", "ON RESUME");
     }
 
-/*
-    @Override
-    public Parcelable saveState()
-    {
-        return null;
-    }
-*/
 
 }

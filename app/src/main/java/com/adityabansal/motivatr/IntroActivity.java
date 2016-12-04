@@ -21,19 +21,12 @@ public class IntroActivity extends AppIntro {
 
         // Add your slide fragments here.
         // AppIntro will automatically generate the dots indicator and buttons.
-/*
-        addSlide(firstFragment);
-        addSlide(secondFragment);
-        addSlide(thirdFragment);
-        addSlide(fourthFragment);
-*/
-
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
         addSlide(TutorialFragment.newInstance("Right Swipe To Save", "", R.drawable.tutorial_screen1_save, Color.parseColor("#06416E")));
         addSlide(TutorialFragment.newInstance("Left Swipe To Discard", "", R.drawable.tutorial_screen2_discard, Color.parseColor("#06416E")));
         addSlide(TutorialFragment.newInstance("Tap to view details", "", R.drawable.tuturoial_screen3_click, Color.parseColor("#06416E")));
-//        set
+
         // OPTIONAL METHODS
         // Override bar/separator color.
         setBarColor(Color.parseColor("#0E74FA"));
@@ -43,16 +36,13 @@ public class IntroActivity extends AppIntro {
         showSkipButton(false);
         setProgressButtonEnabled(true);
 
-        // Turn vibration on and set intensity.
-        // NOTE: you will probably need to ask VIBRATE permission in Manifest.
-//        setVibrate(true);
-//        setVibrateIntensity(30);
     }
 
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
         // Do something when users tap on Skip button.
+        //TODO dont need to implement this method
     }
 
     @Override
@@ -66,5 +56,6 @@ public class IntroActivity extends AppIntro {
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);
         // Do something when the slide changes.
+        //TODO dont need to implement this method
     }
 }

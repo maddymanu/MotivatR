@@ -117,6 +117,10 @@ public class MainSwipeView extends Fragment {
 
                             Log.i("MainSwipeView", "card was swiped left, position in adapter: " + stableId);
                             //Put this post in the discared posts //TODO change to SAVED DATA
+                            if (stableId == all.size()-1){
+                                Log.d("DEBUG" , "last item");
+                                emptyListTV.setVisibility(View.VISIBLE);
+                            }
                             allDiscaredPosts.add(all.get((int)stableId));
                             Paper.book().write("discaredPosts", allDiscaredPosts);
 
@@ -128,6 +132,10 @@ public class MainSwipeView extends Fragment {
                             Log.i("MainSwipeView", "card was swiped right, position in adapter: " + stableId);
                             //TODO
                             //change to hold only 50 saved & remove delete function bug
+                            if (stableId == all.size()-1){
+                                emptyListTV.setVisibility(View.VISIBLE);
+                                Log.d("DEBUG" , "last item");
+                            }
                             SAVED_DATA.writeNewPost(all.get((int)stableId));
                             NavBarActivity.adapterViewPager.notifyDataSetChanged();
 

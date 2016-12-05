@@ -79,7 +79,6 @@ public class SwipeDeckAdapter extends BaseAdapter {
             title_textview.setText(data.get(position).title);
 
         } catch (Exception e2) {
-            Log.d("EXCCC", e2.toString());
         }
 
 

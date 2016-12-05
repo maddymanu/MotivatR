@@ -23,7 +23,7 @@
         android:gravity="center_horizontal"
         android:visibility="gone"
         android:id="@+id/empty_list_tv"
-        android:text="EMPTY VIEW. Try again tomorrow"/>
+        android:text="No more articles :( \n Try again tomorrow"/>
 
 <!--    <Button
         android:layout_width="wrap_content"

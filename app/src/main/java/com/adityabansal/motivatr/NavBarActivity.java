@@ -12,10 +12,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar.Model;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 
 /**
@@ -32,6 +34,11 @@ public class NavBarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(true)
+                .build();
+        Fabric.with(fabric);
         setContentView(R.layout.navbar_main);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);

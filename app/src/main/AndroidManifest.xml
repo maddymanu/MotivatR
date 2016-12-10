@@ -35,6 +35,9 @@
                 android:value=".NavBarActivity" />
         </activity>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="1a70f13b76945118bc926aeba88b478b3190936c" />
     </application>
 
 </manifest>
